@@ -1,0 +1,112 @@
+﻿@model TestProject1.Models.Student
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using(Html.BeginForm("Create", "Student", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class=" row form-horizontal">
+                <h4>Student</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                    @Html.LabelFor(model => model.imagePath, new { @class = "control-label col-md-2" })
+                    <div class="row" style="height:100px">
+                        <div class="col-md-10">
+                            <img id="imageUpload" src="" alt="No Image Selected" width="100%" />
+                        </div>
+                    </div>
+                    <input type="file" id="file" name="file" />
+                       
+                    @*@Html.EditorFor(model => model.imagePath, new { @class = "form-control" })*@
+                    @Html.ValidationMessageFor(model => model.imagePath)
+            </div>
+        </div>
+
+        <div class="col-md-6">
+
+            
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.name, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.name)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.stateId, "stateId", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("stateId", null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.stateId)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.cityId, "cityId", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("cityId", null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.cityId)
+                    </div>
+                </div>
+
+                        <div class="form-group">
+                <div class="col-md-10">
+                    
+                        <label for="Qualification">Qualification: </label>
+                        <input type="checkbox" name="chk" value="10" /> 10
+                        <input type="checkbox" name="chk" value="12" /> 12
+                        <input type="checkbox" name="chk" value="UG" /> UG
+                        <input type="checkbox" name="chk" value="PG" /> PG
+                    
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageUpload').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#file").change(function () {
+        readURL(this);
+    });
+
+</script>
